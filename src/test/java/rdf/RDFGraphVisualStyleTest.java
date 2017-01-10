@@ -2,6 +2,10 @@ package rdf;
 
 import static org.junit.Assert.*;
 
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+
+import org.apache.jena.rdf.model.ModelFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +17,7 @@ import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 
 
 public class RDFGraphVisualStyleTest {
@@ -50,5 +55,26 @@ public class RDFGraphVisualStyleTest {
     public void testVertexLabelTransformer() {
         assertThat(server.getRenderContext().getVertexLabelTransformer(), instanceOf(ToStringLabeller.class));
     }
+    
+    @Test
+    public void testVertexLabelPosition() {
+        assertEquals(Position.CNTR, server.getRenderer().getVertexLabelRenderer().getPosition());
+    }
 
+    @Test
+    public void testVertexShapeTransformer() {
+        assertThat(server.getRenderContext().getVertexShapeTransformer(), instanceOf(RDFGraphVisualStyle.VertexShapeTransformer.class));
+    }
+    
+    @Test
+    public void testShapeEllipse() {
+        assertThat(server.getRenderContext().getVertexShapeTransformer().apply(new Node(ModelFactory.createDefaultModel().createResource("lit"))), instanceOf(Ellipse2D.class));
+        assertThat(server.getRenderContext().getVertexShapeTransformer().apply(new Node(ModelFactory.createDefaultModel().createResource(""))), instanceOf(Ellipse2D.class));
+    }
+    
+    @Test
+    public void testShapeRect() {
+        assertThat(server.getRenderContext().getVertexShapeTransformer().apply(new Node(ModelFactory.createDefaultModel().createLiteral("lit"))), instanceOf(Rectangle2D.class));
+        assertThat(server.getRenderContext().getVertexShapeTransformer().apply(new Node(ModelFactory.createDefaultModel().createLiteral(""))), instanceOf(Rectangle2D.class));
+    }
 }
