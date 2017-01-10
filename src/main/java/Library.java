@@ -11,6 +11,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.NodeIterator;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
@@ -20,23 +21,28 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.VCARD;
 
+import rdf.Edge;
+import rdf.Node;
+import rdf.RDFModelToGraphTransformer;
+import rdf.SparseMultigraphFactory;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
-import edu.uci.ics.jung.visualization.VisualizationImageServer;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+
 
 public class Library {
 	public Model createModel() {
 		String johnURI = "person://john";
     	String alexURI = "person://alex";
     	String benURI = "person://ben";
+    	String unknownURI = "person://unknown";
     	Model m = ModelFactory.createDefaultModel();
     	Resource john = m.createResource(johnURI).addProperty(VCARD.NAME, "John");
     	Resource alex = m.createResource(alexURI).addProperty(VCARD.NAME, "Alex");
     	m.createResource(benURI).addProperty(VCARD.NAME, "Ben");
+    	m.createResource(unknownURI);
     	john.addProperty(VCARD.Family, alex);
     	alex.addProperty(VCARD.Family,john);
     	return m;
@@ -68,33 +74,33 @@ public class Library {
     		Resource r = subIter.nextResource();
     		System.out.println(r.toString());
     	}
+    	NodeIterator nodeIter = m.listObjects();
+    	System.out.println("Objects");
+    	while(nodeIter.hasNext()) {
+    	    RDFNode n = nodeIter.next();
+    	    System.out.println(n.toString());
+    	}
         return true;
     }
     
-    public Graph<Integer, String>  createGraph() {
-        Graph<Integer, String> g;
-    	// Graph<V, E> where V is the type of the vertices and E is the type of the edges
-        g = new SparseMultigraph<Integer, String>();
-        // Add some vertices. From above we defined these to be type Integer.
-        g.addVertex((Integer)1);
-        g.addVertex((Integer)2);
-        g.addVertex((Integer)3); 
-        // Note that the default is for undirected edges, our Edges are Strings.
-        g.addEdge("Edge-A", 1, 2); // Note that Java 1.5 auto-boxes primitives
-        g.addEdge("Edge-B", 2, 3);
+    public Graph<Node, Edge>  createGraph() {
+        Graph<Node, Edge> g;
+    	Model m = createModel();
+    	g = new RDFModelToGraphTransformer(new SparseMultigraphFactory<Node, Edge>()).apply(m);
         return g;
     }
     
     public void showGraph() {
     	EventQueue.invokeLater(() -> {
-        	 Graph<Integer, String> graph = createGraph();
-	       	 Layout<Integer, String> layout = new CircleLayout(graph);
+        	 Graph<Node, Edge> graph = createGraph();
+	       	 Layout<Node, Edge> layout = new CircleLayout<>(graph);
 	       	 layout.setSize(new Dimension(300,300)); // sets the initial size of the space
 	       	 // The BasicVisualizationServer<V,E> is parameterized by the edge types
-	       	 BasicVisualizationServer<Integer,String> vv =
-	       	 new BasicVisualizationServer<Integer,String>(layout);
+	       	 BasicVisualizationServer<Node, Edge> vv =
+	       	 new BasicVisualizationServer<Node, Edge>(layout);
 	       	 vv.setPreferredSize(new Dimension(350,350)); //Sets the viewing area size
-	
+	       	 vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+	       	 vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
 	       	 JFrame frame = new JFrame("Simple Graph View");
 	       	 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	       	 frame.getContentPane().add(vv);
