@@ -8,7 +8,9 @@
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
+
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.NodeIterator;
@@ -21,16 +23,16 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.VCARD;
 
+
 import rdf.Edge;
+import rdf.GraphVisualStyle;
 import rdf.Node;
+import rdf.RDFGraphVisualStyle;
 import rdf.RDFModelToGraphTransformer;
 import rdf.SparseMultigraphFactory;
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
-import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
-
 
 public class Library {
 	public Model createModel() {
@@ -93,14 +95,13 @@ public class Library {
     public void showGraph() {
     	EventQueue.invokeLater(() -> {
         	 Graph<Node, Edge> graph = createGraph();
-	       	 Layout<Node, Edge> layout = new CircleLayout<>(graph);
-	       	 layout.setSize(new Dimension(300,300)); // sets the initial size of the space
-	       	 // The BasicVisualizationServer<V,E> is parameterized by the edge types
+        	 GraphVisualStyle<Node, Edge> vs = new RDFGraphVisualStyle();
+	       	 Layout<Node, Edge> layout = vs.getLayoutForGraph(graph);
+	       	 layout.setSize(new Dimension(300,300));
 	       	 BasicVisualizationServer<Node, Edge> vv =
 	       	 new BasicVisualizationServer<Node, Edge>(layout);
-	       	 vv.setPreferredSize(new Dimension(350,350)); //Sets the viewing area size
-	       	 vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-	       	 vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+	       	 vv.setPreferredSize(new Dimension(400,400));
+	       	 vs.applyStyleTo(vv);
 	       	 JFrame frame = new JFrame("Simple Graph View");
 	       	 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	       	 frame.getContentPane().add(vv);
