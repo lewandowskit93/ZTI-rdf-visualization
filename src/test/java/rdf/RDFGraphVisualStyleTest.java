@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
-import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
+import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
@@ -38,7 +38,7 @@ public class RDFGraphVisualStyleTest {
     
     @Test
     public void testLayout() {
-        assertThat(layout, instanceOf(ISOMLayout.class));
+        assertThat(layout, instanceOf(FRLayout.class));
     }
     
     @Test

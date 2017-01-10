@@ -97,7 +97,6 @@ public class Library {
         	 Graph<Node, Edge> graph = createGraph();
         	 GraphVisualStyle<Node, Edge> vs = new RDFGraphVisualStyle();
 	       	 Layout<Node, Edge> layout = vs.getLayoutForGraph(graph);
-	       	 layout.setSize(new Dimension(300,300));
 	       	 BasicVisualizationServer<Node, Edge> vv =
 	       	 new BasicVisualizationServer<Node, Edge>(layout);
 	       	 vv.setPreferredSize(new Dimension(400,400));

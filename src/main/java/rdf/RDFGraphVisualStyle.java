@@ -1,6 +1,7 @@
 package rdf;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Shape;
@@ -11,7 +12,7 @@ import org.apache.jena.rdf.model.Resource;
 
 import com.google.common.base.Function;
 
-import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
+import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationServer;
@@ -23,8 +24,8 @@ public class RDFGraphVisualStyle implements GraphVisualStyle<Node, Edge> {
         static final double RATIO = 0.75;
         static final double MIN_HEIGHT = 30.0;
         static final double MIN_WIDTH = 30.0;
-        static final double MAX_HEIGHT = Double.MAX_VALUE;
-        static final double MAX_WIDTH = Double.MAX_VALUE;
+        static final double MAX_HEIGHT = 60.0;
+        static final double MAX_WIDTH = 60.0;
         static final double PADDING = 5.0;
         
         private VisualizationServer<Node, Edge> vs;
@@ -74,7 +75,9 @@ public class RDFGraphVisualStyle implements GraphVisualStyle<Node, Edge> {
     
     @Override
     public Layout<Node, Edge> getLayoutForGraph(Graph<Node, Edge> graph) {
-        return new ISOMLayout<>(graph);
+        FRLayout<Node, Edge> layout = new FRLayout<>(graph);
+        layout.setSize(new Dimension((int) (graph.getVertexCount()*VertexShapeTransformer.MAX_WIDTH*1.5), (int) (graph.getVertexCount()*VertexShapeTransformer.MAX_HEIGHT*1.5)));
+        return layout;
     }
     
     @Override
