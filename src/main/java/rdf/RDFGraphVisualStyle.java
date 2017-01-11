@@ -1,17 +1,13 @@
 package rdf;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
-import java.util.Comparator;
 
-import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 
 import com.google.common.base.Function;
@@ -76,37 +72,7 @@ public class RDFGraphVisualStyle implements GraphVisualStyle<Node, Edge> {
             }
         }
     }
-    
-    public static class NodeGradientFillPaintTransformer implements Function<Node, Paint> {
-        Graph<Node, Edge> graph;
         
-        public NodeGradientFillPaintTransformer(Graph<Node, Edge> graph) {
-            this.graph = graph;
-        }
-        
-        @Override
-        public Paint apply(Node input) {
-            RDFNode node = input.getRDFNode();
-            int maxDegree = graph.getVertices().stream().map(n -> graph.outDegree(n)).max(Comparator.naturalOrder()).orElse(0);
-            int nodeDegree = graph.outDegree(input);
-            if(node.canAs(Resource.class)) {
-                if(node.isAnon()) {
-                    return Color.black;
-                }
-            }
-            double ratio = 0.0;
-            if(maxDegree != 0) {
-                ratio = (double)nodeDegree/(double)maxDegree;
-                ratio = 1.0 - ratio;
-            }
-            double H = 0.5 * ratio; // Hue
-            double S = 1.0; // Saturation
-            double B = 1.0; // Brightness
-            return Color.getHSBColor((float)H, (float)S, (float)B);
-        }
-        
-    }
-    
     @Override
     public Layout<Node, Edge> getLayoutForGraph(Graph<Node, Edge> graph) {
         FRLayout<Node, Edge> layout = new FRLayout<>(graph);
@@ -119,7 +85,7 @@ public class RDFGraphVisualStyle implements GraphVisualStyle<Node, Edge> {
         vs.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
         vs.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
         vs.getRenderContext().setVertexShapeTransformer(new VertexShapeTransformer(vs));
-        vs.getRenderContext().setVertexFillPaintTransformer(new NodeGradientFillPaintTransformer(vs.getGraphLayout().getGraph()));
+        vs.getRenderContext().setVertexFillPaintTransformer(new VertexOutDegreePaintTransformer<>(vs.getGraphLayout().getGraph(), new HSB(0.5f, 1.0f, 1.0f), new HSB(0.0f, 1.0f, 1.0f), new ColorModelLinearInterpolator<HSB>()));
         vs.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
     }
 
