@@ -17,6 +17,7 @@ public class GraphViewController extends ViewController {
     private PluggableGraphMouse graphMouse;
     
     public GraphViewController() {
+        super();
         view = new GraphView();
         setupGraphMouse();
     }
