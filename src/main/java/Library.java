@@ -5,12 +5,11 @@
  * @author ventyl, @date 1/8/17 2:07 PM
  */
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
-
 import javax.swing.JFrame;
-
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.NodeIterator;
@@ -23,16 +22,16 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.VCARD;
 
-
 import rdf.Edge;
 import rdf.GraphVisualStyle;
 import rdf.Node;
 import rdf.RDFGraphVisualStyle;
 import rdf.RDFModelToGraphTransformer;
 import rdf.SparseMultigraphFactory;
+import viewcontrollers.GraphViewController;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
 
 public class Library {
 	public Model createModel() {
@@ -97,13 +96,14 @@ public class Library {
         	 Graph<Node, Edge> graph = createGraph();
         	 GraphVisualStyle<Node, Edge> vs = new RDFGraphVisualStyle();
 	       	 Layout<Node, Edge> layout = vs.getLayoutForGraph(graph);
-	       	 BasicVisualizationServer<Node, Edge> vv =
-	       	 new BasicVisualizationServer<Node, Edge>(layout);
+	       	 VisualizationViewer<Node, Edge> vv = new VisualizationViewer<Node, Edge>(layout);
 	       	 vv.setPreferredSize(new Dimension(400,400));
 	       	 vs.applyStyleTo(vv);
 	       	 JFrame frame = new JFrame("Simple Graph View");
+	       	 GraphViewController vc = new GraphViewController();
+	       	 vc.setVisualizationViewer(vv);
+	       	 frame.getContentPane().add(vc.view, BorderLayout.CENTER);
 	       	 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	       	 frame.getContentPane().add(vv);
 	       	 frame.pack();
 	       	 frame.setVisible(true);
         });
