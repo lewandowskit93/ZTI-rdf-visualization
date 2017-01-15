@@ -23,7 +23,7 @@ public class AnonNodeInfoView extends JPanel implements NodeInfoView {
         super();
         setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
-                FormSpecs.PREF_COLSPEC,
+                ColumnSpec.decode("50dlu"),
                 FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("50dlu"),
                 FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,},
@@ -32,8 +32,7 @@ public class AnonNodeInfoView extends JPanel implements NodeInfoView {
                 FormSpecs.PREF_ROWSPEC,
                 FormSpecs.LINE_GAP_ROWSPEC,
                 FormSpecs.PREF_ROWSPEC,
-                FormSpecs.LINE_GAP_ROWSPEC,
-        }));
+                FormSpecs.LINE_GAP_ROWSPEC,}));
         
         JLabel lblVisible = new JLabel("Visible:");
         add(lblVisible, "2, 2, left, center");

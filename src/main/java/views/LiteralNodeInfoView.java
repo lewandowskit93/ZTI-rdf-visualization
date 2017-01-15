@@ -27,7 +27,7 @@ public class LiteralNodeInfoView extends JPanel implements NodeInfoView {
         super();
         setLayout(new FormLayout(new ColumnSpec[] {
                 FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
-                FormSpecs.PREF_COLSPEC,
+                ColumnSpec.decode("50dlu"),
                 FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("50dlu"),
                 FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,},
