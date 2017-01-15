@@ -20,5 +20,5 @@ public abstract class NodeInfoViewController extends ViewController {
         return (NodeInfoView) view;
     }
     
-    abstract boolean acceptsModel(Node model);
+    public abstract boolean acceptsModel(Node model);
 }

@@ -16,7 +16,7 @@ public class NamedNodeInfoViewController extends NodeInfoViewController
     }
 
     @Override
-    boolean acceptsModel(Node model) {
+    public boolean acceptsModel(Node model) {
         return model != null && model.getRDFNode().isURIResource();
     }
     

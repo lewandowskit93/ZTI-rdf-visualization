@@ -15,7 +15,7 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 
 public class MainViewController extends ViewController {
     private GraphViewController gvc;
-    private AnonNodeInfoViewController lnivc;
+    private AutoNodeInfoViewController lnivc;
     
     public MainViewController() {
         super();
@@ -32,7 +32,7 @@ public class MainViewController extends ViewController {
         gvc = new GraphViewController();
         view.add(gvc.view);
         
-        lnivc = new AnonNodeInfoViewController();
+        lnivc = new AutoNodeInfoViewController();
         view.add(lnivc.view);
     }
     
@@ -45,15 +45,19 @@ public class MainViewController extends ViewController {
         vs.applyStyleTo(vv);
         gvc.setVisualizationViewer(vv);
         
-        lnivc.getNodeInfoView().getVisibilityCheckbox().addItemListener(e -> {
-            if(e.getItem() == lnivc.getNodeInfoView().getVisibilityCheckbox()) {
-                Node model = lnivc.getModel();
-                if (model != null) {
-                    vv.repaint();
+        lnivc.setModel(graph.getVertices().stream().filter(n -> n.getRDFNode().isLiteral()).findAny().orElse(null));
+        
+        for(NodeInfoViewController c : lnivc.getNodeInfoViewControllers()) {
+            c.getNodeInfoView().getVisibilityCheckbox().addItemListener(e -> {
+                if(e.getItem() == c.getNodeInfoView().getVisibilityCheckbox()) {
+                    Node model = c.getModel();
+                    if (model != null) {
+                        vv.repaint();
+                    }
                 }
-            }
-            
-        });
-        lnivc.setModel(graph.getVertices().stream().filter(n -> n.getRDFNode().isAnon()).findAny().orElse(null));
+                
+            });
+        }
+        
     }
 }

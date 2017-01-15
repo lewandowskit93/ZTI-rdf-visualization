@@ -15,7 +15,7 @@ public class LiteralNodeInfoViewController extends NodeInfoViewController implem
     }
 
     @Override
-    boolean acceptsModel(Node model) {
+    public boolean acceptsModel(Node model) {
         return model != null && model.getRDFNode().isLiteral();
     }
     
