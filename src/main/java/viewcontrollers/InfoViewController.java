@@ -1,27 +1,37 @@
 package viewcontrollers;
 
 
+import javax.swing.JScrollPane;
+
 import com.jgoodies.forms.layout.CellConstraints;
 
 import views.InfoView;
 
 public class InfoViewController extends ViewController {
+    private InfoView infoView;
+    
     private AutoNodeInfoViewController nodeInfoController;
     private NamedEdgeInfoViewController edgeInfoViewController;
+    private InvisibleNodesController invisibleNodesController;
     
     public InfoViewController() {
         super();
-        view = new InfoView();
+        infoView = new InfoView();
+        view = new JScrollPane(infoView);
+        view.setPreferredSize(infoView.getPreferredSize());
         setupControllers();
     }
     
     private void setupControllers() {
         nodeInfoController = new AutoNodeInfoViewController();
         CellConstraints cc = new CellConstraints();
-        view.add(nodeInfoController.view, cc.xy(2,4));
+        infoView.add(nodeInfoController.view, cc.xy(2,4));
         
         edgeInfoViewController = new NamedEdgeInfoViewController();
-        view.add(edgeInfoViewController.view, cc.xy(2,8));
+        infoView.add(edgeInfoViewController.view, cc.xy(2,8));
+        
+        invisibleNodesController = new InvisibleNodesController();
+        infoView.add(invisibleNodesController.view, cc.xy(2,12));
     }
     
     public AutoNodeInfoViewController getNodeInfoController() {
@@ -30,5 +40,13 @@ public class InfoViewController extends ViewController {
     
     public NamedEdgeInfoViewController getEdgeInfoViewController() {
         return edgeInfoViewController;
+    }
+    
+    public InvisibleNodesController getInvisibleNodesListController() {
+        return invisibleNodesController;
+    }
+    
+    public InfoView getInfoView() {
+        return infoView;
     }
 }

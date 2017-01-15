@@ -29,6 +29,10 @@ public class InfoView extends JPanel {
                 FormSpecs.PREF_ROWSPEC,
                 RowSpec.decode("1dlu"),
                 FormSpecs.PREF_ROWSPEC,
+                FormSpecs.LINE_GAP_ROWSPEC,
+                FormSpecs.PREF_ROWSPEC,
+                RowSpec.decode("1dlu"),
+                RowSpec.decode("min(150dlu;pref)"),
                 FormSpecs.LINE_GAP_ROWSPEC,}));
         
         JLabel lblNodeInfo = new JLabel("Selected Node:");
@@ -38,5 +42,9 @@ public class InfoView extends JPanel {
         JLabel lblEdgeInfo = new JLabel("Selected Edge:");
         lblEdgeInfo.setHorizontalAlignment(SwingConstants.CENTER);
         add(lblEdgeInfo, "2, 6");
+        
+        JLabel lblInvisibleNodes = new JLabel("Invisible Nodes List:");
+        lblInvisibleNodes.setHorizontalAlignment(SwingConstants.CENTER);
+        add(lblInvisibleNodes, "2, 10");
     }
 }
