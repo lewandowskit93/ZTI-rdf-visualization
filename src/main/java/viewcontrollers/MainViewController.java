@@ -9,6 +9,7 @@ import rdf.GraphVisualStyle;
 import rdf.Library;
 import rdf.Node;
 import rdf.RDFGraphVisualStyle;
+import utils.EdgeInfoGraphMousePlugin;
 import utils.NodeInfoGraphMousePlugin;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
@@ -63,8 +64,8 @@ public class MainViewController extends ViewController {
         }
         
         gvc.getGraphMouse().add(new NodeInfoGraphMousePlugin<Edge>(anivc));
+        gvc.getGraphMouse().add(new EdgeInfoGraphMousePlugin<Edge>(neivc));
         
-        neivc.setModel((Edge) graph.getEdges().toArray()[0]);
     }
 
 }

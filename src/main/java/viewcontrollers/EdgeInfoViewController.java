@@ -12,7 +12,7 @@ public abstract class EdgeInfoViewController extends ViewController {
         getEdgeInfoView().populateWithModel(model);
     }
     
-    private EdgeInfoView getEdgeInfoView() {
+    public EdgeInfoView getEdgeInfoView() {
         return (EdgeInfoView) view;
     }
 
