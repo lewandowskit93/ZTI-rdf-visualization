@@ -6,33 +6,24 @@ import java.awt.event.ItemListener;
 import rdf.Node;
 import views.LiteralNodeInfoView;
 
-public class LiteralNodeInfoViewController extends ViewController implements ItemListener {
-    private Node model;
+public class LiteralNodeInfoViewController extends NodeInfoViewController implements ItemListener {
     
     public LiteralNodeInfoViewController() {
         super();
         view = new LiteralNodeInfoView();
-        getInfoView().getVisibilityCheckbox().addItemListener(this);
-    }
-    
-    public void setModel(Node model) {
-        this.model = model;
-        getInfoView().populateWithModel(model);
-    }
-    
-    public Node getModel() {
-        return model;
-    }
-    
-    public LiteralNodeInfoView getInfoView() {
-        return (LiteralNodeInfoView) view;
+        getNodeInfoView().getVisibilityCheckbox().addItemListener(this);
     }
 
     @Override
+    boolean acceptsModel(Node model) {
+        return model != null && model.getRDFNode().isLiteral();
+    }
+    
+    @Override
     public void itemStateChanged(ItemEvent e) {
-        if (model == null) return;
-        if (e.getItem() == getInfoView().getVisibilityCheckbox()) {
-            model.setVisible(getInfoView().getVisibilityCheckbox().isSelected());
+        if (getModel() == null) return;
+        if (e.getItem() == getNodeInfoView().getVisibilityCheckbox()) {
+            getModel().setVisible(getNodeInfoView().getVisibilityCheckbox().isSelected());
         }
     }
 }

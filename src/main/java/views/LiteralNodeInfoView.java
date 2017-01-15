@@ -14,7 +14,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 
-public class LiteralNodeInfoView extends JPanel {
+public class LiteralNodeInfoView extends JPanel implements NodeInfoView {
     
     private static final long serialVersionUID = -1815648016578477857L;
     

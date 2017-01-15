@@ -45,8 +45,8 @@ public class MainViewController extends ViewController {
         vs.applyStyleTo(vv);
         gvc.setVisualizationViewer(vv);
         
-        lnivc.getInfoView().getVisibilityCheckbox().addItemListener(e -> {
-            if(e.getItem() == lnivc.getInfoView().getVisibilityCheckbox()) {
+        lnivc.getNodeInfoView().getVisibilityCheckbox().addItemListener(e -> {
+            if(e.getItem() == lnivc.getNodeInfoView().getVisibilityCheckbox()) {
                 Node model = lnivc.getModel();
                 if (model != null) {
                     vv.repaint();
