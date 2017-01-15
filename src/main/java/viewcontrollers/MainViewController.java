@@ -17,6 +17,7 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 public class MainViewController extends ViewController {
     private GraphViewController gvc;
     private AutoNodeInfoViewController anivc;
+    private NamedEdgeInfoViewController neivc;
     
     public MainViewController() {
         super();
@@ -34,7 +35,10 @@ public class MainViewController extends ViewController {
         view.add(gvc.view);
         
         anivc = new AutoNodeInfoViewController();
-        view.add(anivc.view);
+        //view.add(anivc.view);
+        
+        neivc = new NamedEdgeInfoViewController();
+        view.add(neivc.view);
     }
     
     private void setupGraph() {
@@ -45,9 +49,7 @@ public class MainViewController extends ViewController {
         vv.setPreferredSize(new Dimension(400,400));
         vs.applyStyleTo(vv);
         gvc.setVisualizationViewer(vv);
-        
-        anivc.setModel(graph.getVertices().stream().filter(n -> n.getRDFNode().isLiteral()).findAny().orElse(null));
-        
+                
         for(NodeInfoViewController c : anivc.getNodeInfoViewControllers()) {
             c.getNodeInfoView().getVisibilityCheckbox().addItemListener(e -> {
                 if(e.getItem() == c.getNodeInfoView().getVisibilityCheckbox()) {
@@ -61,6 +63,8 @@ public class MainViewController extends ViewController {
         }
         
         gvc.getGraphMouse().add(new NodeInfoGraphMousePlugin<Edge>(anivc));
+        
+        neivc.setModel((Edge) graph.getEdges().toArray()[0]);
     }
 
 }
