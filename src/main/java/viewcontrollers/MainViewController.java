@@ -17,8 +17,7 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 
 public class MainViewController extends ViewController {
     private GraphViewController gvc;
-    private AutoNodeInfoViewController anivc;
-    private NamedEdgeInfoViewController neivc;
+    private InfoViewController infoController;
     
     public MainViewController() {
         super();
@@ -35,11 +34,8 @@ public class MainViewController extends ViewController {
         gvc = new GraphViewController();
         view.add(gvc.view);
         
-        anivc = new AutoNodeInfoViewController();
-        //view.add(anivc.view);
-        
-        neivc = new NamedEdgeInfoViewController();
-        view.add(neivc.view);
+        infoController = new InfoViewController();
+        view.add(infoController.view);
     }
     
     private void setupGraph() {
@@ -51,7 +47,7 @@ public class MainViewController extends ViewController {
         vs.applyStyleTo(vv);
         gvc.setVisualizationViewer(vv);
                 
-        for(NodeInfoViewController c : anivc.getNodeInfoViewControllers()) {
+        for(NodeInfoViewController c : infoController.getNodeInfoController().getNodeInfoViewControllers()) {
             c.getNodeInfoView().getVisibilityCheckbox().addItemListener(e -> {
                 if(e.getItem() == c.getNodeInfoView().getVisibilityCheckbox()) {
                     Node model = c.getModel();
@@ -63,8 +59,8 @@ public class MainViewController extends ViewController {
             });
         }
         
-        gvc.getGraphMouse().add(new NodeInfoGraphMousePlugin<Edge>(anivc));
-        gvc.getGraphMouse().add(new EdgeInfoGraphMousePlugin<Edge>(neivc));
+        gvc.getGraphMouse().add(new NodeInfoGraphMousePlugin<Edge>(infoController.getNodeInfoController()));
+        gvc.getGraphMouse().add(new EdgeInfoGraphMousePlugin<Edge>(infoController.getEdgeInfoViewController()));
         
     }
 
