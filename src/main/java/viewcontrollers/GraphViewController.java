@@ -46,4 +46,8 @@ public class GraphViewController extends ViewController {
         graphMouse.add(new RotatingGraphMousePlugin(MouseEvent.BUTTON2_MASK));
         graphMouse.add(new PickingGraphMousePlugin<>());
     }
+    
+    public PluggableGraphMouse getGraphMouse() {
+        return graphMouse;
+    }
 }

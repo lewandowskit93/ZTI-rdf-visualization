@@ -9,13 +9,14 @@ import rdf.GraphVisualStyle;
 import rdf.Library;
 import rdf.Node;
 import rdf.RDFGraphVisualStyle;
+import utils.NodeInfoGraphMousePlugin;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 
 public class MainViewController extends ViewController {
     private GraphViewController gvc;
-    private AutoNodeInfoViewController lnivc;
+    private AutoNodeInfoViewController anivc;
     
     public MainViewController() {
         super();
@@ -32,8 +33,8 @@ public class MainViewController extends ViewController {
         gvc = new GraphViewController();
         view.add(gvc.view);
         
-        lnivc = new AutoNodeInfoViewController();
-        view.add(lnivc.view);
+        anivc = new AutoNodeInfoViewController();
+        view.add(anivc.view);
     }
     
     private void setupGraph() {
@@ -45,9 +46,9 @@ public class MainViewController extends ViewController {
         vs.applyStyleTo(vv);
         gvc.setVisualizationViewer(vv);
         
-        lnivc.setModel(graph.getVertices().stream().filter(n -> n.getRDFNode().isLiteral()).findAny().orElse(null));
+        anivc.setModel(graph.getVertices().stream().filter(n -> n.getRDFNode().isLiteral()).findAny().orElse(null));
         
-        for(NodeInfoViewController c : lnivc.getNodeInfoViewControllers()) {
+        for(NodeInfoViewController c : anivc.getNodeInfoViewControllers()) {
             c.getNodeInfoView().getVisibilityCheckbox().addItemListener(e -> {
                 if(e.getItem() == c.getNodeInfoView().getVisibilityCheckbox()) {
                     Node model = c.getModel();
@@ -59,5 +60,7 @@ public class MainViewController extends ViewController {
             });
         }
         
+        gvc.getGraphMouse().add(new NodeInfoGraphMousePlugin<Edge>(anivc));
     }
+
 }

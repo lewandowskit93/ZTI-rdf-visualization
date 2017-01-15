@@ -25,7 +25,12 @@ public class AutoNodeInfoViewController extends NodeInfoViewController {
                 view.remove(getCurrentNodeInfoController().view);
             }
             currentControllerIndex = -1;
+            view.repaint();
+            view.validate();
             return;
+        }
+        if(getCurrentNodeInfoController() != null) {
+            view.remove(getCurrentNodeInfoController().view);
         }
         int i = innerControllers.length - 1;
         for (;i>=0;--i) {
@@ -36,6 +41,8 @@ public class AutoNodeInfoViewController extends NodeInfoViewController {
             view.add(getCurrentNodeInfoController().view, BorderLayout.CENTER);
             getCurrentNodeInfoController().setModel(model);
         }
+        view.repaint();
+        view.validate();
     };
     
     @Override
