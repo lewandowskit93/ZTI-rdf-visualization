@@ -43,38 +43,38 @@ public class NamedNodeInfoView extends JPanel implements NodeInfoView {
                 FormSpecs.LINE_GAP_ROWSPEC,}));
         
         JLabel lblVisible = new JLabel("Visible:");
-        add(lblVisible, "2, 2, left, top");
+        add(lblVisible, "2, 2, left, center");
         
         cbVisible = new JCheckBox();
-        add(cbVisible, "4, 2, center, top");
+        add(cbVisible, "4, 2, center, center");
         
         JLabel lblURI = new JLabel("URI:");
-        add(lblURI, "2, 4, left, top");
+        add(lblURI, "2, 4, left, center");
         
         tfURI = new JTextField();
         tfURI.setEditable(false);
-        add(tfURI, "4, 4, fill, top");
+        add(tfURI, "4, 4, fill, center");
         
         JLabel lblShortURI = new JLabel("Short URI:");
-        add(lblShortURI, "2, 6, left, top");
+        add(lblShortURI, "2, 6, left, center");
         
         tfShortURI = new JTextField();
         tfShortURI.setEditable(false);
-        add(tfShortURI, "4, 6, fill, top");
+        add(tfShortURI, "4, 6, fill, center");
         
         JLabel lblLocalName = new JLabel("Name:");
-        add(lblLocalName, "2, 8, left, top");
+        add(lblLocalName, "2, 8, left, center");
         
         tfLocalName = new JTextField();
         tfLocalName.setEditable(false);
-        add(tfLocalName, "4, 8, fill, top");
+        add(tfLocalName, "4, 8, fill, center");
         
         JLabel lblNameSpace = new JLabel("Namespace:");
-        add(lblNameSpace, "2, 10, left, top");
+        add(lblNameSpace, "2, 10, left, center");
         
         tfNameSpace = new JTextField();
         tfNameSpace.setEditable(false);
-        add(tfNameSpace, "4, 10, fill, top");
+        add(tfNameSpace, "4, 10, fill, center");
         
     }
     

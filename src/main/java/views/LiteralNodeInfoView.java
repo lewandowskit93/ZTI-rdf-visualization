@@ -43,31 +43,31 @@ public class LiteralNodeInfoView extends JPanel implements NodeInfoView {
                 FormSpecs.LINE_GAP_ROWSPEC,}));
         
         JLabel lblVisible = new JLabel("Visible:");
-        add(lblVisible, "2, 2, left, top");
+        add(lblVisible, "2, 2, left, center");
         
         cbVisible = new JCheckBox();
-        add(cbVisible, "4, 2, center, top");
+        add(cbVisible, "4, 2, center, center");
         
         JLabel lblType = new JLabel("Type:");
-        add(lblType, "2, 4, left, top");
+        add(lblType, "2, 4, left, center");
         
         tfType = new JTextField();
         tfType.setEditable(false);
-        add(tfType, "4, 4, fill, top");
+        add(tfType, "4, 4, fill, center");
         
         JLabel lblValue = new JLabel("Value:");
-        add(lblValue, "2, 6, left, top");
+        add(lblValue, "2, 6, left, center");
         
         tfValue = new JTextField();
         tfValue.setEditable(false);
-        add(tfValue, "4, 6, fill, top");
+        add(tfValue, "4, 6, fill, center");
         
         JLabel lblLanguage = new JLabel("Language:");
-        add(lblLanguage, "2, 8, left, top");
+        add(lblLanguage, "2, 8, left, center");
         
         tfLanguage = new JTextField();
         tfLanguage.setEditable(false);
-        add(tfLanguage, "4, 8, fill, top");
+        add(tfLanguage, "4, 8, fill, center");
         
     }
     
