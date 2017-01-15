@@ -15,7 +15,7 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 
 public class MainViewController extends ViewController {
     private GraphViewController gvc;
-    private NamedNodeInfoViewController lnivc;
+    private AnonNodeInfoViewController lnivc;
     
     public MainViewController() {
         super();
@@ -32,7 +32,7 @@ public class MainViewController extends ViewController {
         gvc = new GraphViewController();
         view.add(gvc.view);
         
-        lnivc = new NamedNodeInfoViewController();
+        lnivc = new AnonNodeInfoViewController();
         view.add(lnivc.view);
     }
     
@@ -54,6 +54,6 @@ public class MainViewController extends ViewController {
             }
             
         });
-        lnivc.setModel(graph.getVertices().stream().filter(n -> n.getRDFNode().isURIResource()).findAny().orElse(null));
+        lnivc.setModel(graph.getVertices().stream().filter(n -> n.getRDFNode().isAnon()).findAny().orElse(null));
     }
 }

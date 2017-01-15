@@ -36,6 +36,7 @@ public class Library {
     	Resource alex = m.createResource(alexURI).addProperty(VCARD.NAME, "Alex");
     	m.createResource(benURI).addProperty(VCARD.NAME, "Ben");
     	m.createResource(unknownURI);
+    	m.createResource().addLiteral(m.createProperty("anon://is"), true);
     	john.addProperty(VCARD.Family, alex);
     	alex.addProperty(VCARD.Family,john);
     	return m;
