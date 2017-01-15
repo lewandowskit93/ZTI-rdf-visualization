@@ -48,6 +48,14 @@ public class MainViewController extends ViewController {
         
         InvisibleNodeProvider invisibleNodeProvider = new InvisibleNodeProvider(graph);
         infoController.getInvisibleNodesListController().setProvider(invisibleNodeProvider);
+        
+        infoController.getInvisibleNodesListController().getListView().addListSelectionListener(e -> {
+            if(e.getValueIsAdjusting())return;
+            Node node = infoController.getInvisibleNodesListController().getListView().getSelectedValue();
+            if (node == null) return;
+            infoController.getNodeInfoController().setModel(node);
+        });
+        
         invisibleNodeProvider.reloadData();
         
         for(NodeInfoViewController c : infoController.getNodeInfoController().getNodeInfoViewControllers()) {

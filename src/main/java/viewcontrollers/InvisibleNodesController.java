@@ -3,6 +3,7 @@ package viewcontrollers;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 
 import rdf.Node;
 
@@ -14,6 +15,7 @@ public class InvisibleNodesController extends ViewController {
     public InvisibleNodesController() {
         super();
         listView = new JList<Node>();
+        listView.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         view = new JScrollPane(listView);
     }
     
