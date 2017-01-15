@@ -14,6 +14,7 @@ import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
+import edu.uci.ics.jung.graph.util.Context;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
@@ -76,5 +77,15 @@ public class RDFGraphVisualStyleTest {
     public void testShapeRect() {
         assertThat(server.getRenderContext().getVertexShapeTransformer().apply(new Node(ModelFactory.createDefaultModel().createLiteral("lit"))), instanceOf(Rectangle2D.class));
         assertThat(server.getRenderContext().getVertexShapeTransformer().apply(new Node(ModelFactory.createDefaultModel().createLiteral(""))), instanceOf(Rectangle2D.class));
+    }
+    
+    @Test
+    public void testNodeVisibility() {
+        Node invisibleNode = new Node(ModelFactory.createDefaultModel().createLiteral("invisible"));
+        invisibleNode.setVisible(false);
+        Node visibleNode = new Node(ModelFactory.createDefaultModel().createLiteral("visible"));
+        visibleNode.setVisible(true);
+        assertFalse(server.getRenderContext().getVertexIncludePredicate().apply(Context.getInstance(graph, invisibleNode)));
+        assertTrue(server.getRenderContext().getVertexIncludePredicate().apply(Context.getInstance(graph, visibleNode)));
     }
 }

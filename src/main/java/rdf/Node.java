@@ -1,13 +1,16 @@
 package rdf;
+
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 
 
 public class Node {
 	private RDFNode rdfNode;
+	private boolean visible;
 	
 	public Node(RDFNode rdfNode) {
 		this.rdfNode = rdfNode;
+		this.visible = true;
 	}
 	
 	@Override
@@ -21,5 +24,13 @@ public class Node {
 	
 	public RDFNode getRDFNode() {
 	    return rdfNode;
+	}
+	
+	public boolean isVisible() {
+	    return visible;
+	}
+	
+	public void setVisible(boolean visible) {
+	    this.visible = visible;
 	}
 }

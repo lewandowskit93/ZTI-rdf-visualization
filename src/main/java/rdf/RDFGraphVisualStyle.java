@@ -87,6 +87,7 @@ public class RDFGraphVisualStyle implements GraphVisualStyle<Node, Edge> {
         vs.getRenderContext().setVertexShapeTransformer(new VertexShapeTransformer(vs));
         vs.getRenderContext().setVertexFillPaintTransformer(new VertexOutDegreePaintTransformer<>(vs.getGraphLayout().getGraph(), new HSB(0.5f, 1.0f, 1.0f), new HSB(0.0f, 1.0f, 1.0f), new ColorModelLinearInterpolator<HSB>()));
         vs.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+        vs.getRenderContext().setVertexIncludePredicate(context -> context.element.isVisible());
     }
 
 }
