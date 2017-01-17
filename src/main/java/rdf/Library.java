@@ -6,7 +6,6 @@ package rdf;
  * @author ventyl, @date 1/8/17 2:07 PM
  */
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -22,7 +21,6 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.VCARD;
 
-import viewcontrollers.MainViewController;
 import edu.uci.ics.jung.graph.Graph;
 
 public class Library {
@@ -86,12 +84,9 @@ public class Library {
     
     public void showGraph() {
     	EventQueue.invokeLater(() -> {
-        	 MainViewController mvc = new MainViewController();
-	       	 JFrame frame = new JFrame("Simple Graph View");
-	       	 frame.getContentPane().add(mvc.view, BorderLayout.CENTER);
-	       	 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	       	 frame.pack();
-	       	 frame.setVisible(true);
+	       	 JFrame frame = new RDFFrame("Simple Graph View");
+	         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	         frame.setVisible(true);
         });
 
     }
