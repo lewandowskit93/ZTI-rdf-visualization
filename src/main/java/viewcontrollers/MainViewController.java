@@ -1,12 +1,9 @@
 package viewcontrollers;
 
-import java.awt.Dimension;
-
 import javax.swing.JSplitPane;
 
 import rdf.Edge;
 import rdf.GraphVisualStyle;
-import rdf.Library;
 import rdf.Node;
 import rdf.RDFGraphVisualStyle;
 import utils.EdgeInfoGraphMousePlugin;
@@ -19,6 +16,7 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 public class MainViewController extends ViewController {
     private GraphViewController gvc;
     private InfoViewController infoController;
+    private Graph<Node, Edge> graph;
     
     public MainViewController() {
         super();
@@ -26,7 +24,6 @@ public class MainViewController extends ViewController {
         JSplitPane pane = (JSplitPane) view;
         pane.setResizeWeight(1.0);
         setupChildControllers();
-        setupGraph();
     }
     
     private void setupChildControllers() {
@@ -35,14 +32,17 @@ public class MainViewController extends ViewController {
         
         infoController = new InfoViewController();
         view.add(infoController.view);
+        
+        gvc.getGraphMouse().add(new NodeInfoGraphMousePlugin<Edge>(infoController.getNodeInfoController()));
+        gvc.getGraphMouse().add(new EdgeInfoGraphMousePlugin<Edge>(infoController.getEdgeInfoViewController()));
     }
-    
-    private void setupGraph() {
-        Graph<Node, Edge> graph = Library.createGraph();
+
+    public void setGraph(Graph<Node, Edge> graph) {
+        this.graph = graph;
+        if(this.graph == null) return;
         GraphVisualStyle<Node, Edge> vs = new RDFGraphVisualStyle();
         Layout<Node, Edge> layout = vs.getLayoutForGraph(graph);
         VisualizationViewer<Node, Edge> vv = new VisualizationViewer<Node, Edge>(layout);
-        vv.setPreferredSize(new Dimension(400,400));
         vs.applyStyleTo(vv);
         gvc.setVisualizationViewer(vv);
         
@@ -72,10 +72,5 @@ public class MainViewController extends ViewController {
                 
             });
         }
-        
-        gvc.getGraphMouse().add(new NodeInfoGraphMousePlugin<Edge>(infoController.getNodeInfoController()));
-        gvc.getGraphMouse().add(new EdgeInfoGraphMousePlugin<Edge>(infoController.getEdgeInfoViewController()));
-        
     }
-
 }
