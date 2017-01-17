@@ -63,6 +63,11 @@ public class RDFFrame extends JFrame {
             loadRDFModel();
         });
         
+        JMenuItem importMenu = new JMenuItem("Import RDF file");
+        importMenu.addActionListener(e -> {
+            importRDFModel();
+        });
+        
         JMenuItem exit = new JMenuItem("Exit");
         exit.addActionListener(e -> {
             setVisible(false);
@@ -70,6 +75,7 @@ public class RDFFrame extends JFrame {
         });
         
         file.add(load);
+        file.add(importMenu);
         file.add(exit);
         
         menuBar.add(file);
@@ -77,6 +83,31 @@ public class RDFFrame extends JFrame {
     }
     
     public void loadRDFModel() {
+        JFileChooser fc = createFileChooser();
+        int result = fc.showOpenDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION) {
+            rdfModel = ModelFactory.createDefaultModel().read(fc.getSelectedFile().getAbsolutePath());
+        }
+        loadGraph();
+    }
+    
+    public void importRDFModel() {
+        JFileChooser fc = createFileChooser();
+        int result = fc.showOpenDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION) {
+            Model model = ModelFactory.createDefaultModel().read(fc.getSelectedFile().getAbsolutePath());
+            if (rdfModel != null) {
+                Model modelsUnion = ModelFactory.createUnion(rdfModel, model);
+                rdfModel = modelsUnion;
+            }
+            else {
+                rdfModel = model;
+            }
+        }
+        loadGraph();
+    }
+    
+    private JFileChooser createFileChooser() {
         JFileChooser fc = new JFileChooser();
         fc.setAcceptAllFileFilterUsed(false);
         fc.addChoosableFileFilter(new FileNameExtensionFilter("RDF/XML", "rdf"));
@@ -86,11 +117,7 @@ public class RDFFrame extends JFrame {
         fc.addChoosableFileFilter(new FileNameExtensionFilter("N-Triples", "nt"));
         fc.addChoosableFileFilter(new FileNameExtensionFilter("Turle", "ttl"));
         fc.setMultiSelectionEnabled(false);
-        int result = fc.showOpenDialog(this);
-        if(result == JFileChooser.APPROVE_OPTION) {
-            rdfModel = ModelFactory.createDefaultModel().read(fc.getSelectedFile().getAbsolutePath());
-        }
-        loadGraph();
+        return fc;
     }
     
     public void loadGraph() {
