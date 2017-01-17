@@ -6,6 +6,7 @@ package rdf;
  * @author ventyl, @date 1/8/17 2:07 PM
  */
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -85,6 +86,8 @@ public class Library {
     public void showGraph() {
     	EventQueue.invokeLater(() -> {
 	       	 JFrame frame = new RDFFrame("Simple Graph View");
+	       	 frame.setSize(new Dimension(800,600));
+	       	 frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 	         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	         frame.setVisible(true);
         });

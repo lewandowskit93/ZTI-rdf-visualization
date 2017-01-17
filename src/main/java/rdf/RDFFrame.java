@@ -50,11 +50,8 @@ public class RDFFrame extends JFrame {
     
     private void setup() {
         controller = new MainViewController();
-        getContentPane().add(controller.view, BorderLayout.CENTER);
-        pack();
-        
+        getContentPane().add(controller.view, BorderLayout.CENTER);        
         setupMenu();
-        //loadRDFModel();
     }
     
     public void setupMenu() {
@@ -148,6 +145,7 @@ public class RDFFrame extends JFrame {
         if(rdfModel == null) return;
         graph = new RDFModelToGraphTransformer(new SparseMultigraphFactory<Node, Edge>()).apply(rdfModel);
         controller.setGraph(graph);
-        pack();
+        revalidate();
+        repaint();
     }
 }
