@@ -1,12 +1,9 @@
 package viewcontrollers;
 
-import java.awt.Dimension;
-
 import javax.swing.JSplitPane;
 
 import rdf.Edge;
 import rdf.GraphVisualStyle;
-import rdf.Library;
 import rdf.Node;
 import rdf.RDFGraphVisualStyle;
 import utils.EdgeInfoGraphMousePlugin;
@@ -42,11 +39,10 @@ public class MainViewController extends ViewController {
 
     public void setGraph(Graph<Node, Edge> graph) {
         this.graph = graph;
-        if(graph == null) return;
+        if(this.graph == null) return;
         GraphVisualStyle<Node, Edge> vs = new RDFGraphVisualStyle();
         Layout<Node, Edge> layout = vs.getLayoutForGraph(graph);
         VisualizationViewer<Node, Edge> vv = new VisualizationViewer<Node, Edge>(layout);
-        vv.setPreferredSize(new Dimension(400,400));
         vs.applyStyleTo(vv);
         gvc.setVisualizationViewer(vv);
         
