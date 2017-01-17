@@ -18,7 +18,6 @@ public class InfoViewController extends ViewController {
         super();
         infoView = new InfoView();
         view = new JScrollPane(infoView);
-        view.setPreferredSize(infoView.getPreferredSize());
         setupControllers();
     }
     
