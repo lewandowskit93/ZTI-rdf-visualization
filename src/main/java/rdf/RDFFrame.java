@@ -3,12 +3,15 @@ package rdf;
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.jena.rdf.model.Model;
@@ -68,6 +71,11 @@ public class RDFFrame extends JFrame {
             importRDFModel();
         });
         
+        JMenuItem save = new JMenuItem("Save RDF file");
+        save.addActionListener(e -> {
+            saveRDFModel();
+        });
+        
         JMenuItem exit = new JMenuItem("Exit");
         exit.addActionListener(e -> {
             setVisible(false);
@@ -76,6 +84,7 @@ public class RDFFrame extends JFrame {
         
         file.add(load);
         file.add(importMenu);
+        file.add(save);
         file.add(exit);
         
         menuBar.add(file);
@@ -107,6 +116,21 @@ public class RDFFrame extends JFrame {
         loadGraph();
     }
     
+    public void saveRDFModel() {
+        if (rdfModel == null) return;
+        JFileChooser fc = createFileChooser();
+        int result = fc.showOpenDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION) {
+            try(FileWriter fr = new FileWriter(fc.getSelectedFile().getAbsolutePath())) {
+                rdfModel.write(fr);
+                fr.flush();
+            }
+            catch(IOException e){
+                JOptionPane.showMessageDialog(this, "Could not save a file", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
     private JFileChooser createFileChooser() {
         JFileChooser fc = new JFileChooser();
         fc.setAcceptAllFileFilterUsed(false);
@@ -115,7 +139,7 @@ public class RDFFrame extends JFrame {
         fc.addChoosableFileFilter(new FileNameExtensionFilter("JSON-LD", "jsonld"));
         fc.addChoosableFileFilter(new FileNameExtensionFilter("RDF/JSON", "rj"));
         fc.addChoosableFileFilter(new FileNameExtensionFilter("N-Triples", "nt"));
-        fc.addChoosableFileFilter(new FileNameExtensionFilter("Turle", "ttl"));
+        fc.addChoosableFileFilter(new FileNameExtensionFilter("Turtle", "ttl"));
         fc.setMultiSelectionEnabled(false);
         return fc;
     }
