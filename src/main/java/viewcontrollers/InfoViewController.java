@@ -7,6 +7,11 @@ import com.jgoodies.forms.layout.CellConstraints;
 
 import views.InfoView;
 
+/**
+ * View controller for view which groups views for displaying information about: nodes, edges, invisible nodes.
+ * The set of views is scrollable allowing to present all the information.
+ * @author ventyl
+ */
 public class InfoViewController extends ViewController {
     private InfoView infoView;
     
@@ -33,18 +38,30 @@ public class InfoViewController extends ViewController {
         infoView.add(invisibleNodesController.view, cc.xy(2,12));
     }
     
+    /**
+     * @return Inner NodeInfoViewController
+     */
     public AutoNodeInfoViewController getNodeInfoController() {
         return nodeInfoController;
     }
     
+    /**
+     * @return Inner EdgeInfoViewController
+     */
     public NamedEdgeInfoViewController getEdgeInfoViewController() {
         return edgeInfoViewController;
     }
     
+    /**
+     * @return Inner InvisibleNodesController
+     */
     public InvisibleNodesController getInvisibleNodesListController() {
         return invisibleNodesController;
     }
     
+    /**
+     * @return InfoView managed by controller.
+     */
     public InfoView getInfoView() {
         return infoView;
     }

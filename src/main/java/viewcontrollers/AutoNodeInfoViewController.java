@@ -7,6 +7,11 @@ import javax.swing.JPanel;
 import rdf.Node;
 import views.NodeInfoView;
 
+/**
+ * Proxy for node info view controller. It accepts all types of nodes: Anonymous, Literal, Named.
+ * It chooses the valid controller which shall be used to present the given node and setups it's view automatically.
+ * @author ventyl
+ */
 public class AutoNodeInfoViewController extends NodeInfoViewController {
     private NodeInfoViewController innerControllers[];
     private int currentControllerIndex;
@@ -63,12 +68,19 @@ public class AutoNodeInfoViewController extends NodeInfoViewController {
         else return getCurrentNodeInfoController().getModel();
     }
     
+    /**
+     * Currently useed node info view.
+     */
     @Override
     public NodeInfoView getNodeInfoView() {
         if (getCurrentNodeInfoController() == null) return null;
         else return getCurrentNodeInfoController().getNodeInfoView();
     }
     
+    /**
+     * Inner controllers used to display nodes information.
+     * @return
+     */
     public NodeInfoViewController[] getNodeInfoViewControllers() {
         return innerControllers;
     }

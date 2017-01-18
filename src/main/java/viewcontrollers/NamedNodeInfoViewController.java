@@ -6,6 +6,11 @@ import java.awt.event.ItemListener;
 import rdf.Node;
 import views.NamedNodeInfoView;
 
+/**
+ * View controller for controlling view which displays information about nodes created for the RDF URI nodes.
+ * Automatically changes node state on interaction with view's checkbox.
+ * @author ventyl
+ */
 public class NamedNodeInfoViewController extends NodeInfoViewController
         implements ItemListener {
 

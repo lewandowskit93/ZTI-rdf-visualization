@@ -14,6 +14,11 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 
+/**
+ * View that displays information about Literal, Node type.
+ * The displayed informations are: Visibility, type, value and (if provided) a language
+ * @author ventyl
+ */
 public class LiteralNodeInfoView extends JPanel implements NodeInfoView {
     
     private static final long serialVersionUID = -1815648016578477857L;

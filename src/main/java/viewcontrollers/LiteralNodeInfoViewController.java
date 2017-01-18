@@ -6,6 +6,11 @@ import java.awt.event.ItemListener;
 import rdf.Node;
 import views.LiteralNodeInfoView;
 
+/**
+ * View controller for controlling view which displays information about nodes created for the RDF literals.
+ * Automatically changes node state on interaction with view's checkbox.
+ * @author ventyl
+ */
 public class LiteralNodeInfoViewController extends NodeInfoViewController implements ItemListener {
     
     public LiteralNodeInfoViewController() {

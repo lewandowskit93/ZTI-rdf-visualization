@@ -20,6 +20,10 @@ import org.apache.jena.rdf.model.ModelFactory;
 import edu.uci.ics.jung.graph.Graph;
 import viewcontrollers.MainViewController;
 
+/**
+ * Represents program's main window
+ * @author ventyl
+ */
 public class RDFFrame extends JFrame {
 
     private static final long serialVersionUID = 1632734516053201550L;
@@ -54,7 +58,7 @@ public class RDFFrame extends JFrame {
         setupMenu();
     }
     
-    public void setupMenu() {
+    private void setupMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu file = new JMenu("File");
         
@@ -88,6 +92,11 @@ public class RDFFrame extends JFrame {
         setJMenuBar(menuBar);
     }
     
+    /***
+     * Loads RDF model from file.
+     * Supported formats: .rdf, .owl, .jsonld, .rj, .nt, .ttl
+     * Displaying graph of loaded model.
+     */
     public void loadRDFModel() {
         JFileChooser fc = createFileChooser();
         int result = fc.showOpenDialog(this);
@@ -97,6 +106,11 @@ public class RDFFrame extends JFrame {
         loadGraph();
     }
     
+    /***
+     * Imports RDF model from file and creates union witch current model.
+     * Supported formats: .rdf, .owl, .jsonld, .rj, .nt, .ttl
+     * Displaying graph of such model model.
+     */
     public void importRDFModel() {
         JFileChooser fc = createFileChooser();
         int result = fc.showOpenDialog(this);
@@ -113,6 +127,10 @@ public class RDFFrame extends JFrame {
         loadGraph();
     }
     
+    /**
+     * Saves current model to RDF file.
+     * Supported formats: .rdf, .owl, .jsonld, .rj, .nt, .ttl
+     */
     public void saveRDFModel() {
         if (rdfModel == null) return;
         JFileChooser fc = createFileChooser();
@@ -141,6 +159,9 @@ public class RDFFrame extends JFrame {
         return fc;
     }
     
+    /**
+     * Creates graph for loaded RDF model and displays it.
+     */
     public void loadGraph() {
         if(rdfModel == null) return;
         graph = new RDFModelToGraphTransformer(new SparseMultigraphFactory<Node, Edge>()).apply(rdfModel);

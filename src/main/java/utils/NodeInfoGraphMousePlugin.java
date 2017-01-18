@@ -10,13 +10,28 @@ import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.AbstractGraphMousePlugin;
 
+/**
+ * GraphMousePlugin which allows to display information about selected vertex on vertex info view.
+ * @author ventyl
+ *
+ * @param <K> Graph's edge type
+ */
 public class NodeInfoGraphMousePlugin<K> extends AbstractGraphMousePlugin implements MouseListener {
     private NodeInfoViewController nodeInfoController;
     
+    /**
+     * Creates mouse plugin for given controller. Default mouse event is button1 click.
+     * @param nodeInfoController Controller to update
+     */
     public NodeInfoGraphMousePlugin(NodeInfoViewController nodeInfoController) {
         this(nodeInfoController, MouseEvent.BUTTON1_MASK);
     }
     
+    /**
+     * Creates mouse plugin for given controller. Trigger's update for given event modifiers.
+     * @param nodeInfoController Controller to update
+     * @param modifiers EventType modifiers
+     */
     public NodeInfoGraphMousePlugin(NodeInfoViewController nodeInfoController, int modifiers) {
         super(modifiers);
         this.nodeInfoController = nodeInfoController;

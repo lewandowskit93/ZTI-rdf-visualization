@@ -11,6 +11,11 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import rdf.Edge;
 
+/**
+ * View that displays information about Edge.
+ * The displayed informations are: URI, short version of URI (or URI if not available), name within namespae, namespace.
+ * @author ventyl
+ */
 public class NamedEdgeInfoView extends JPanel implements EdgeInfoView {
 
     private static final long serialVersionUID = 7604775517621092369L;

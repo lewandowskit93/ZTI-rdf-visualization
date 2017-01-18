@@ -11,9 +11,17 @@ import com.google.common.base.Function;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 
+/**
+ * Transforms JENA RDF model to JUNG Graph.
+ * @author ventyl
+ */
 public class RDFModelToGraphTransformer implements Function<Model, Graph<Node, Edge>> {
     private GraphFactory<Node, Edge> graphFactory;
     
+    /**
+     * Creates instance of transformer which uses supplied factory to produce graphs.
+     * @param graphFactory
+     */
     public RDFModelToGraphTransformer(GraphFactory<Node, Edge> graphFactory) {
         this.graphFactory = graphFactory;
     }
