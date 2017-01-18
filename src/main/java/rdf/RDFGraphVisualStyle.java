@@ -20,12 +20,35 @@ import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 
 public class RDFGraphVisualStyle implements GraphVisualStyle<Node, Edge> {
+    
+    /***
+     * Shape transformer for vertices. It returns rectangular shapes for literals and circles for other resources.
+     * @author ventyl
+     */
     public static class VertexShapeTransformer implements Function<Node, Shape> {
+        /**
+         * Default width:height ratio of rectangular shape.
+         */
         static final double RATIO = 0.75;
+        /**
+         * Min height of a shape.
+         */
         static final double MIN_HEIGHT = 30.0;
+        /**
+         * Min width of a shape.
+         */
         static final double MIN_WIDTH = 30.0;
+        /**
+         * Max height of a shape
+         */
         static final double MAX_HEIGHT = 60.0;
+        /**
+         * Max width of a shape
+         */
         static final double MAX_WIDTH = 60.0;
+        /**
+         * Trailing & Leading padding for text.
+         */
         static final double PADDING = 5.0;
         
         private VisualizationServer<Node, Edge> vs;
@@ -72,7 +95,10 @@ public class RDFGraphVisualStyle implements GraphVisualStyle<Node, Edge> {
             }
         }
     }
-        
+    
+    /**
+     * Returns Fruchterman-Reingold layouted graph.
+     */
     @Override
     public Layout<Node, Edge> getLayoutForGraph(Graph<Node, Edge> graph) {
         FRLayout<Node, Edge> layout = new FRLayout<>(graph);

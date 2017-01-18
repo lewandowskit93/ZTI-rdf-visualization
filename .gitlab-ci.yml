@@ -17,3 +17,8 @@ test:
   stage: test
   script:
     - ./gradlew -g cache/.gradle check
+
+documentation:
+  stage: deploy
+  script:
+    - ./gradlew -g cache/.gradle javadoc

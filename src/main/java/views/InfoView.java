@@ -9,6 +9,10 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.SwingConstants;
 
+/**
+ * View for grouping node info, edge info, and invisible nodes views.
+ * @author ventyl
+ */
 public class InfoView extends JPanel {
 
     private static final long serialVersionUID = 1075750538505424291L;

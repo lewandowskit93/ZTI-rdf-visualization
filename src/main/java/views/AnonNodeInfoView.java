@@ -12,6 +12,11 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import rdf.Node;
 
+/**
+ * View that displays information about Anonymous Node type.
+ * The displayed informations are: Visibility, ID of a node.
+ * @author ventyl
+ */
 public class AnonNodeInfoView extends JPanel implements NodeInfoView {
 
     private static final long serialVersionUID = -2359568056993266562L;

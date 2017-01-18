@@ -2,10 +2,16 @@ package rdf;
 
 import java.util.stream.IntStream;
 
-
+/**
+ * Class which allows linear interpolation for any color model.
+ * 
+ * @author ventyl
+ *
+ * @param <CM> Color model.
+ */
 public class ColorModelLinearInterpolator<CM extends ColorModel<CM>> implements
         Interpolator<CM> {
-
+    
     @Override
     public CM interpolate(CM c1, CM c2, double ratio) {
         float[] components1 = c1.getColorComponents();

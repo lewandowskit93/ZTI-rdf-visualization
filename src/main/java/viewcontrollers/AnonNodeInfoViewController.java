@@ -6,6 +6,11 @@ import java.awt.event.ItemListener;
 import rdf.Node;
 import views.AnonNodeInfoView;
 
+/**
+ * View controller for view that displays information's about anonymous node e.g. RDF resource without URI.
+ * Accepts only Node which was created from Anonymous RDF resource.
+ * @author ventyl
+ */
 public class AnonNodeInfoViewController extends NodeInfoViewController
         implements ItemListener {
 

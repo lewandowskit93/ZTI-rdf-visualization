@@ -12,6 +12,11 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import rdf.Node;
 
+/**
+ * View that displays information about URI Resource Node type.
+ * The displayed informations are: Visibility, URI, short version of URI (or URI if not available), name within namespae, namespace.
+ * @author ventyl
+ */
 public class NamedNodeInfoView extends JPanel implements NodeInfoView {
     private static final long serialVersionUID = -5054269430541122506L;
     

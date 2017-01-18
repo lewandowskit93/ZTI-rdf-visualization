@@ -13,6 +13,11 @@ import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 
+/**
+ * View controller for main view of the application.
+ * The view consists of GraphView and InfoView.
+ * @author ventyl
+ */
 public class MainViewController extends ViewController {
     private GraphViewController gvc;
     private InfoViewController infoController;
@@ -36,7 +41,11 @@ public class MainViewController extends ViewController {
         gvc.getGraphMouse().add(new NodeInfoGraphMousePlugin<Edge>(infoController.getNodeInfoController()));
         gvc.getGraphMouse().add(new EdgeInfoGraphMousePlugin<Edge>(infoController.getEdgeInfoViewController()));
     }
-
+    
+    /**
+     * Creates visualization viewer for given graph, applies basic visualization style and setups the graph to inner GraphViewController.
+     * @param graph
+     */
     public void setGraph(Graph<Node, Edge> graph) {
         this.graph = graph;
         if(this.graph == null) return;

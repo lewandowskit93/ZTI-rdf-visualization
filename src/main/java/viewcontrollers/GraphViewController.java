@@ -12,6 +12,12 @@ import edu.uci.ics.jung.visualization.control.ScalingGraphMousePlugin;
 import edu.uci.ics.jung.visualization.control.ViewTranslatingGraphMousePlugin;
 import views.GraphView;
 
+/**
+ * View controller for views which displays graphs (visualization viewers) of any type.
+ * Setups mouse for gestures: graph translation, graph rotation, graph zooming, nodes translations.
+ * Allows graph scrolling.
+ * @author ventyl
+ */
 public class GraphViewController extends ViewController {
     private VisualizationViewer<?, ?> vv;
     private PluggableGraphMouse graphMouse;
@@ -22,6 +28,10 @@ public class GraphViewController extends ViewController {
         setupGraphMouse();
     }
     
+    /**
+     * Setups the visualization viewer with graph which shall be presented by the view managed by the controller.
+     * @param vv
+     */
     public void setVisualizationViewer(VisualizationViewer<?, ?> vv) {
         if(this.vv != null && graphMouse == vv.getGraphMouse()) {
             vv.setGraphMouse(null);
@@ -31,10 +41,16 @@ public class GraphViewController extends ViewController {
         vv.setGraphMouse(graphMouse);
     }
     
+    /**
+     * @return VisualizationViewer that is used by the graph controller.
+     */
     public VisualizationViewer<?, ?> getVisualizationViewer() {
         return vv;
     }
     
+    /**
+     * @return GraphView managed by controller.
+     */
     public GraphView getGraphView() {
         return (GraphView) view;
     }
@@ -47,6 +63,10 @@ public class GraphViewController extends ViewController {
         graphMouse.add(new PickingGraphMousePlugin<>());
     }
     
+    /**
+     * Returns pluggablee graph mouse used by controller which allows to add another gestures which shall be recognized.
+     * @return Graph mouse used by controller.
+     */
     public PluggableGraphMouse getGraphMouse() {
         return graphMouse;
     }
